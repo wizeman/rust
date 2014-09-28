@@ -53,7 +53,7 @@ fn run_ar(handler: &ErrorHandler, maybe_ar_prog: &Option<String>,
           paths: &[&Path]) -> ProcessOutput {
     let ar = match *maybe_ar_prog {
         Some(ref ar) => ar.as_slice(),
-        None => "ar"
+        None => "@arPath@"
     };
     let mut cmd = Command::new(ar);
 

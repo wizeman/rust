@@ -383,18 +383,9 @@ pub fn mangle_internal_name_by_path_and_seq(path: PathElems, flav: &str) -> Stri
 
 pub fn get_cc_prog(sess: &Session) -> String {
     match sess.opts.cg.linker {
-        Some(ref linker) => return linker.to_string(),
-        None => {}
+        Some(ref linker) => linker.to_string(),
+        None => "@ccPath@".to_string()
     }
-
-    // In the future, FreeBSD will use clang as default compiler.
-    // It would be flexible to use cc (system's default C compiler)
-    // instead of hard-coded gcc.
-    // For Windows, there is no cc command, so we add a condition to make it use gcc.
-    match sess.targ_cfg.os {
-        abi::OsWindows => "gcc",
-        _ => "cc",
-    }.to_string()
 }
 
 pub fn remove(sess: &Session, path: &Path) {
